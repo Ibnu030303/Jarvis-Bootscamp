@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\PustakawanController;
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
@@ -32,10 +33,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Cara lebih rapih
 // Route untuk menampilkan data pustakawan
-Route::get('/pustakawan', [PustakawanController::class, 'index']); 
+// Route::get('/pustakawan', [PustakawanController::class, 'index']); 
 
 // Tugas Pertemuan6 membuat route
 Route::get('/biodata', [BiodataController::class, 'index']); 
 
+// Tugas membuat Get all resource pustakawan
+Route::get('/pustakawan', [PustakawanController::class, 'index']);
+
+// add all resource pustakawan
+Route::post('/pustakawan', [PustakawanController::class, 'store']);
+
+// get detail resource pustakawan
+Route::get('/pustakawan/{id}', [PustakawanController::class, 'show']);
+
+//
 // Get all resource
-Route::get('/books', [Bookscontroller::class, 'index']);
+Route::get('/books', [BookController::class, 'index']);
+
+// add all resource
+Route::post('/books', [BookController::class, 'store']);
+
+// get detail resource
+Route::get('/books/{id}', [BookController::class, 'show']);

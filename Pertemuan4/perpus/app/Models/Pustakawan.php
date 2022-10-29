@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Pustakawan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'author', 'publisher', 'rating', 'published_date'];
+    protected $fillable = ['name', 'gender', 'shift'];
 }

@@ -2,26 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pustakawan;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
-class PustakawanController extends Controller
+class BookController extends Controller
 {
-    // function index() {
-    //     $data = [
-    //         "name" => "Ibnu",
-    //         "Gender" => "L",
-    //         "shift" => "malam", 
-    //     ];
-
-    //     return response()->json($data);
-    // }
-
     function index() {
-        $pustakawans = Pustakawan::all();
+
+        //get all data in books table
+        $books = Book::all();
 
         //send 204 if no data 
-        if(count($pustakawans) == 0) {
+        if(count($books) == 0) {
             return response()->json([
                 'message' => 'Get all resources',
                 'status' => 204,
@@ -31,17 +23,18 @@ class PustakawanController extends Controller
         return response()->json([
             'message' => 'Get all resources',
             'status' => 200,
-            'data' => $pustakawans
+            'data' => $books
         ]);
     }
 
     function store(Request $request) {
 
-        $created  = Pustakawan::create([
-            'name' => $request->name,
-            'gender' => $request->gender,
-            'shift' => $request->shift,
-            
+        $created  = Book::create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'publisher' => $request->publisher,
+            'rating' => $request->rating,
+            'published_date' => $request->published_date
         ]);
 
         return response()->json([
@@ -52,10 +45,10 @@ class PustakawanController extends Controller
     }
 
     function show($id){
-        $pustakawans = Pustakawan::find($id);
+        $book = Book::find($id);
 
         // jika id tidak di temukan
-        if(!$pustakawans) {
+        if(!$book) {
             return response()->json([
                 'message' => 'resources not found',
                 'status' => 404,
@@ -66,7 +59,7 @@ class PustakawanController extends Controller
         return response()->json([
             'message' => 'Get detail resource',
             'status' => 200,
-            'data' => $pustakawans
+            'data' => $book
         ], 200);
     }
 }
