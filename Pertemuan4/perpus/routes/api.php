@@ -47,9 +47,6 @@ Route::post('/pustakawan', [PustakawanController::class, 'store']);
 // get detail resource pustakawan
 Route::get('/pustakawan/{id}', [PustakawanController::class, 'show']);
 
-//
-//
-
 // Get all resource
 Route::get('/books', [BookController::class, 'index']);
 
@@ -58,3 +55,9 @@ Route::post('/books', [BookController::class, 'store']);
 
 // get detail resource
 Route::get('/books/{id}', [BookController::class, 'show']);
+
+// edit resource
+Route::put('books/{id}', [BookController::class, 'update']);
+
+// update resource pustakawan
+Route::put('/pustakawan/{id}', [PustakawanController::class, 'update']);

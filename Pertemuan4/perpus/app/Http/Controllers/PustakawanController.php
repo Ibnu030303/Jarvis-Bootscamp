@@ -62,11 +62,39 @@ class PustakawanController extends Controller
             ], 404);
         }
 
-        // return book resource
+        // return pustakawan resource
         return response()->json([
             'message' => 'Get detail resource',
             'status' => 200,
             'data' => $pustakawans
         ], 200);
+    }
+
+    function update ($id, Request $request) {
+
+        $pustakawans = Pustakawan::find($id);
+
+        // jika id tidak di temukan
+        if(!$pustakawans) {
+            return response()->json([
+                'message' => 'id tidak di temukan',
+                'status' => 404,
+                'data' => $pustakawans
+            ], 200);
+        }
+
+        $update = $pustakawans->update ([
+            'name' => $request->name ?? $pustakawans->name,
+            'gender' => $request->gender ?? $pustakawans->gender,
+            'shift' => $request->shift ?? $pustakawans->shift,
+        ]);
+
+        if($update) {
+            return response()->json([
+                'message' => 'data berhasil di update',
+                'data' => $update,
+                'status' => 200
+            ], 200);
+        }
     }
 }
