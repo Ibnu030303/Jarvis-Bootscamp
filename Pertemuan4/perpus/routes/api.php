@@ -61,3 +61,15 @@ Route::put('books/{id}', [BookController::class, 'update']);
 
 // update resource pustakawan
 Route::put('/pustakawan/{id}', [PustakawanController::class, 'update']);
+
+// delete rosurce
+Route::delete('/books/{id}', [BookController::class, 'destroy']);
+
+// search resource by title
+Route::get('/books/search/{title}', [BookController::class, 'search']);
+
+// delete resource pustakwan
+Route::delete('/pustakawan/{id}', [PustakawanController::class, 'destroy']);
+
+// search reosurce by name pustakwan
+Route::get('/pustakawan/search/{name}', [PustakawanController::class, 'search']);

@@ -97,4 +97,43 @@ class PustakawanController extends Controller
             ], 200);
         }
     }
+
+    function destroy ($id) {
+        $pustakawans = Pustakawan::find($id);
+
+        // jika id tidak di temukan
+        if(!$pustakawans) {
+            return response()->json([
+                'message' => 'resources not found',
+                'status' => 404,
+            ], 404);
+        }
+
+        $deleted = $pustakawans->delete();
+
+        if($deleted) {
+            return response()->json([
+                'message' => 'Data berhasail DI Delet',
+                'status' => 200
+            ], 200);
+        }
+    }
+
+    function search ($name) {
+
+        $pustakawans = Pustakawan::where('name', 'like', '%'.$name.'%')->get();
+
+        if(count($pustakawans) == 0) {
+            return response()->json([
+                'message' => 'resources is empety',
+                'status' => 404,
+            ], 404);
+        }
+
+        return response()->json([
+            'message' => 'resource berhasil',
+            'data' => $pustakawans,
+            'status' => 200
+        ], 200);
+    }
 }

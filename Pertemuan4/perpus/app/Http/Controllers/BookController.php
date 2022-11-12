@@ -98,5 +98,44 @@ class BookController extends Controller
             ], 200);
          }
     }
+
+    function destroy($id) {
+        $book = Book::find($id);
+
+        // jika id tidak di temukan
+        if(!$book) {
+            return response()->json([
+                'message' => 'resources not found',
+                'status' => 404,
+            ], 404);
+        }
+
+        $deleted = $book->delete();
+
+        if($deleted) {
+            return response()->json([
+                'message' => 'Data berhasail DI Delet',
+                'status' => 200
+            ], 200);
+        }
+    }
+
+    function search ($title){
+        $books = Book::where('title', 'like', '%' .$title. '%')->get();
+
+        if(count($books) == 0) {
+            return response()->json([
+                'message' => 'resources is empety',
+                'status' => 404,
+            ], 404);
+        }
+        return response()->json([
+            'message' => 'resource berhasil',
+            'data' => $books,
+            'status' => 200
+        ], 200);
+    }
+
+
 }
 
