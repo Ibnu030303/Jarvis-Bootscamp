@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PustakawanController;
@@ -47,29 +48,38 @@ Route::post('/pustakawan', [PustakawanController::class, 'store']);
 // get detail resource pustakawan
 Route::get('/pustakawan/{id}', [PustakawanController::class, 'show']);
 
-// Get all resource
-Route::get('/books', [BookController::class, 'index']);
+Route::middleware('auth:sanctum')->group(function () {
+        // Get all resource
+    Route::get('/books', [BookController::class, 'index']);
 
-// add all resource
-Route::post('/books', [BookController::class, 'store']);
+    // add all resource
+    Route::post('/books', [BookController::class, 'store']);
 
-// get detail resource
-Route::get('/books/{id}', [BookController::class, 'show']);
+    // get detail resource
+    Route::get('/books/{id}', [BookController::class, 'show']);
 
-// edit resource
-Route::put('books/{id}', [BookController::class, 'update']);
+    // edit resource
+    Route::put('books/{id}', [BookController::class, 'update']);
 
-// update resource pustakawan
-Route::put('/pustakawan/{id}', [PustakawanController::class, 'update']);
+    // update resource pustakawan
+    Route::put('/pustakawan/{id}', [PustakawanController::class, 'update']);
 
-// delete rosurce
-Route::delete('/books/{id}', [BookController::class, 'destroy']);
+    // delete rosurce
+    Route::delete('/books/{id}', [BookController::class, 'destroy']);
 
-// search resource by title
-Route::get('/books/search/{title}', [BookController::class, 'search']);
+    // search resource by title
+    Route::get('/books/search/{title}', [BookController::class, 'search']);
 
-// delete resource pustakwan
-Route::delete('/pustakawan/{id}', [PustakawanController::class, 'destroy']);
+    // delete resource pustakwan
+    Route::delete('/pustakawan/{id}', [PustakawanController::class, 'destroy']);
 
-// search reosurce by name pustakwan
-Route::get('/pustakawan/search/{name}', [PustakawanController::class, 'search']);
+    // search reosurce by name pustakwan
+    Route::get('/pustakawan/search/{name}', [PustakawanController::class, 'search']);
+
+});
+
+// register
+Route::post('/register', [AuthController::class, 'register']);
+
+// login
+Route::post('/login', [AuthController::class, 'login']);

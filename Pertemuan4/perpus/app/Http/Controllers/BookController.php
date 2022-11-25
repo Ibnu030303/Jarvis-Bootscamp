@@ -28,6 +28,21 @@ class BookController extends Controller
     }
 
     function store(Request $request) {
+        // //cara pertama validasi
+        // if(!$request->rating) { 
+        //     return response()->json([
+        //         'message' => 'rating is requarid',
+        //         'status' => 400,
+        //     ], 400);
+        // }
+
+        $request->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'publisher' => 'required',
+            'rating' => 'required | numeric',
+            'published_date' => 'required | date',
+        ]);
 
         $created  = Book::create([
             'title' => $request->title,
@@ -81,6 +96,12 @@ class BookController extends Controller
                 'status' => 404,
             ], 404);
         }
+
+        $request->validate([
+            'rating' => ' numeric',
+            'published_date' => 'date',
+        ]);
+        
     
          $updated = $book->update([
             'title' => $request->title ?? $book->title ,
